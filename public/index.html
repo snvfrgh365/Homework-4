@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CPU 價格觀測站（PChome）</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1 id="siteTitle">CPU 價格觀測站（PChome）</h1>
+      <p class="hint">選擇 CPU 型號、輸入日期與價格，建立你的個人化 CPU CPI 清單。</p>
+
+      <section class="card">
+        <h2>新增一筆物價</h2>
+        <form id="createForm" class="grid">
+          <label>
+            日期
+            <input id="dateInput" name="date" type="date" required />
+          </label>
+          <label>
+            CPU 型號
+            <select id="cpuSelect" name="name" required>
+              <option value="Intel Core i5-12400F">Intel Core i5-12400F</option>
+              <option value="Intel Core i5-13400F">Intel Core i5-13400F</option>
+              <option value="Intel Core i7-14700K">Intel Core i7-14700K</option>
+              <option value="AMD Ryzen 5 5600">AMD Ryzen 5 5600</option>
+              <option value="AMD Ryzen 5 7600">AMD Ryzen 5 7600</option>
+              <option value="AMD Ryzen 7 7800X3D">AMD Ryzen 7 7800X3D</option>
+            </select>
+          </label>
+          <label>
+            價格（NT$）
+            <input id="priceInput" name="price" type="number" min="0" step="1" required />
+          </label>
+          <button type="button" id="fetchPriceBtn">從 PChome 抓價</button>
+          <button type="submit">新增</button>
+        </form>
+        <div id="formMessage" class="message" aria-live="polite"></div>
+        <a id="sourceLink" class="source" href="#" target="_blank" rel="noreferrer" hidden></a>
+      </section>
+
+      <section class="card">
+        <div class="row">
+          <h2>歷史紀錄</h2>
+          <label class="search">
+            搜尋
+            <input id="searchInput" type="text" placeholder="輸入 CPU 關鍵字" />
+          </label>
+        </div>
+
+        <div class="tableWrap">
+          <table>
+            <thead>
+              <tr>
+                <th>日期</th>
+                <th>CPU</th>
+                <th class="num">價格</th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+
+        <div class="footer">
+          <span id="count"></span>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="row">
+          <h2>折線圖分析</h2>
+          <label class="search">
+            分析 CPU
+            <select id="chartCpuSelect" required></select>
+          </label>
+        </div>
+
+        <div class="chartWrap">
+          <canvas id="priceChart" aria-label="CPU 價格折線圖" role="img"></canvas>
+        </div>
+
+        <div id="chartMessage" class="message" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <script src="/vendor/chart.umd.min.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>
